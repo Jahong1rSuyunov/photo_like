@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="mb-3">
+        <div class="card">
+            <h2 class="card-header bg-info text-white">
+                <%= image.title %>
+            </h2>
+            <div class="card-body">
+                <p style="font-family: consolas;">
+                    <%= image.description %>
+                </p>
+                <img class="img-thumbnail" src="/upload/<%= image.imageName %>" alt="">
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-secondary">
+                        <button id="btn-like" data-id="<%= image._id %>" class="btn btn-outline-success"><i
+                                class="fa fa-heart"></i> Like</button>
+                        <strong class="likes-count">
+                            <%= image.likes %>
+                        </strong>
+                        <strong>&nbsp; - &nbsp; <i class="fa fa-eye"></i></strong>
+                        <strong>
+                            <%= image.views %>
+                        </strong>
+                        <span><b>&nbsp; - &nbsp; Joylandi: </b><em style="font-size: 14px;">
+                                <%= new Date(image.timeStamp).toUTCString() %>
+                            </em></span>
+                        <div title="Delete current image" class="float-right">
+                            <button id="btn-delete" data-id="" class="p-2 btn btn-outline-danger btn-sm"><i
+                                    class="fa fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3 mb-3">
+            <h4 class="card-header">Komentariyalar <span class="float-right">
+                    <button data-id="<%= //image.uniqueId %>" id="commentsToggle"
+                        class="btn btn-outline-secondary btn-sm">
+                        <i class="fa fa-comments-o"></i> Sharx qoldirish...
+                    </button>
+                </span>
+            </h4>
+            <div class="card-body" id="comments">
+                <div class="row ml-2">
+                    <div class="col-md-12">
+                        <div class="form-group text-secondary">
+                            <form method="POST" action="/images/<%= image._id %>/comment">
+                                <div class="row mb-3">
+                                    <div class="col-md-2 font-weight-bold">Ism:</div>
+                                    <div class="col-md-10 "><input name="name" class="form-control" type="text"
+                                            required></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-2 font-weight-bold">Email:</div>
+                                    <div class="col-md-10 "><input name="email" class="form-control" type="email"
+                                            required></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-2 font-weight-bold">Izoh:</div>
+                                    <div class="col-md-10 "><textarea name="comment" required class="form-control"
+                                            rows="5"></textarea></div>
+                                </div>
+                                <div class=" float-right"><button id="comment-btn"
+                                        class="btn btn-outline-secondary btn-sm"><i class="fa fa-comments"></i>
+                                        Post</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-0">
+
+            <% for (var comment of comments) { %>
+                <div class="row mb-0">
+                    <div class="col-md-2">
+                        <div class="pl-3">
+                            <img style="border-radius: 100%;" width="60" height="60" src="/img/avatar.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div>
+                            <code class="mb-0 text-secondary"><%= comment.comment %></code>
+                            <div
+                                style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                                <strong>
+                                    <%= comment.name %>
+                                </strong>
+                                <small style="font-size: 13px;">
+                                    <%= //vaqt %>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <% } %>
+        </div>
+    </div>
+</div>
